@@ -1,6 +1,7 @@
 <template>
   <el-tabs v-model="activeName" class="app-main" type="border-card">
-    <el-tab-pane label="概览" name="1"><over-view /></el-tab-pane>
+    <el-tab-pane label="测试" name="0"><test v-if="activeName === '0'" /></el-tab-pane>
+    <el-tab-pane label="概览" name="1"><over-view v-if="activeName === '1'" /></el-tab-pane>
     <el-tab-pane label="在线调试" name="2">
       <div class="debuging-view fixed-view">
         <sidebar v-if="activeName === '2'" ref="sidebar" class="sidebar-container" />
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+import test from '@/views/fixedViews/test.vue'
 import overView from '@/views/fixedViews/overView.vue'
 import firmwareUpdate from '@/views/fixedViews/firmwareUpdate.vue'
 import journal from '@/views/fixedViews/journal.vue'
@@ -27,10 +29,10 @@ import journal from '@/views/fixedViews/journal.vue'
 import sidebar from './Sidebar'
 export default {
   name: 'AppMain',
-  components: { overView, firmwareUpdate, journal, sidebar },
+  components: { test, overView, firmwareUpdate, journal, sidebar },
   data() {
     return {
-      activeName: '1'
+      activeName: '0'
     }
   },
   computed: {
