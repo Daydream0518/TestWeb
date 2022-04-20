@@ -1,10 +1,11 @@
 <template>
   <div>
+    <el-button v-for="n in xxxx" :key="n" @click="showDrawer(n)">{{ n }}</el-button>
     <el-form ref="form" label-width="100px">
       <el-row :gutter="20">
         <el-col :span="7">
           <el-form-item label="全局信息">
-            <span>{{ basicinfo.aaa }}</span>
+            <!-- <span>{{ basicinfo.aaa }}</span> -->
           </el-form-item>
           <el-form-item label="设备序列号">
             <span>{{ model.code }}</span>
@@ -63,19 +64,32 @@
         </el-col>
       </el-row>
     </el-form>
+    <!-- <el-drawer title="任健傻逼" :visible.sync="visible" /> -->
+    <drawer1 :visible.sync="visible1" />
+    <drawer2 :visible.sync="visible2" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Drawer1 from './components/drawer1.vue'
+import Drawer2 from './components/drawer2.vue'
 // import { mapState } from 'vuex'
 export default {
+  components: {
+    Drawer1,
+    Drawer2
+  },
   data() {
     return {
       loading2: false,
       model: {},
       loading: false,
-      form: {}
+      form: {},
+      buttonList: [{ name: '1' }, { name: '2' }, { name: '3' }],
+      xxxx: 10,
+      visible1: false,
+      visible2: false
     }
   },
   computed: {
@@ -88,6 +102,10 @@ export default {
     this.queryInfo()
   },
   methods: {
+    showDrawer(n) {
+      // console.log(n)
+      this[`visible${n}`] = true
+    },
     queryTop() {
       this.loading2 = false
       axios
